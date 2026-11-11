@@ -160,7 +160,6 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
       {!signedIn && !exploring && (
         <div className="row signed-actions">
           <button type="button" onClick={onDemo} disabled={loading}>{t('sample')}</button>
-          <button type="button" className="link-btn" onClick={() => setExploring(true)}>{t('visitCity')}</button>
         </div>
       )}
 
@@ -172,7 +171,6 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
           {currentUser && (
             <button type="button" onClick={() => onRefresh(token)} disabled={loading}>{t('refresh')}</button>
           )}
-          <button type="button" className="link-btn" onClick={() => setExploring(true)}>{t('visitOther')}</button>
         </div>
       )}
 
