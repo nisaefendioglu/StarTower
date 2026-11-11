@@ -12,11 +12,11 @@ Star Tower turns a GitHub profile into a small 3D night city. Every public repos
 
 - **A building for every repo.** Up to 60 public, non-fork repositories, arranged in rings around the main tower. Height follows the star count, and each floor is one person who starred the repo.
 - **Main tower of your biggest fans.** Ranks everyone by how many of your repos they starred. The top fan gets the penthouse.
-- **Sign in with GitHub.** See who lives in your own city, with names and avatars.
-- **Publish your city.** Owners can publish their named city so anyone with the link can see it, and take it down at any time.
+- **Sign in with GitHub.** Your own city is built with every name and avatar.
+- **Share your city.** One button copies your link and publishes your city with names, so anyone who opens it sees who lives where. You can take it down at any time.
 - **Find your floor.** Visitors type their own username and the buildings they starred light up, with the month they starred each one.
-- **Shareable links.** `?u=username` opens any city directly.
-- Rising-floor animation, orbit and zoom, hover tooltips, keyboard and reduced-motion support, and a phone layout with a bottom sheet.
+- **Links, not searches.** Cities open from shared links (`?u=username`). Visitors without a link see a sample city.
+- Rising-floor animation, orbit and zoom, hover tooltips, a collapsible side panel, keyboard and reduced-motion support, and a phone layout with a bottom sheet.
 
 ## How it works with GitHub's stargazer rules
 
@@ -25,8 +25,8 @@ In 2026 GitHub limited the list of who starred a repository to the repository's 
 | Who is looking | What they see |
 | --- | --- |
 | The owner, signed in | Their own city with every name |
-| Anyone, for a published city | The named city the owner chose to publish |
-| Anyone, for other cities | Buildings by star count, the main tower built from the most-starred repos, and *Find your floor* |
+| Anyone opening a shared link | The named city its owner shared |
+| Anyone opening a link to a city that was not shared | Buildings by star count, a main tower of the most-starred repos, and *Find your floor* |
 
 *Find your floor* uses a visitor's own public list of starred repositories, which GitHub still makes public.
 
@@ -52,7 +52,7 @@ src/
     RepoCity.jsx          repo buildings, floor picking, signs
     City.jsx              ground, lights, sky, horizon
     CameraRig.jsx         eases the camera to the selected floor or building
-    ControlPanel.jsx      search, sign-in, publishing, Find your floor, floor list
+    ControlPanel.jsx      sign-in, sharing, Find your floor, floor list
     DetailPanel.jsx       person, repo and visitor panels
   lib/
     github.js             GitHub API access and local cache
