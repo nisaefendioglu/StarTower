@@ -15,7 +15,8 @@ const REPOS = [
   ['flutter-playground', 'Widget experiments', 'Dart', 0],
 ];
 
-const LOGINS = 'selin-yilmaz kodcu-baris ayse-dev emreakin zeynepk burak-tr elif-codes canozturk melis-ui onurdev gizem-js kerem-flutter ipek-ml tolga-backend nazli-kt arda-oss sevval-data umut-go ece-design hakan-rust yagmur-ai bora-sec defne-web alp-devops irem-qa serkan-k cansu-m efe-games pinar-cloud oguz-api mert-sh duru-app kaan-ops lale-ux berk-cpp asli-r tuna-swift sena-vue okan-db nil-test ege-node sude-kt cem-linux aylin-py'.split(' ');
+// Örnek kullanıcılar: GitHub adlarında '_' olamayacağı için gerçek hesaplarla karışmaz
+const LOGINS = 'selin_yilmaz kodcu_baris ayse_dev emre_akin zeynep_k burak_tr elif_codes can_ozturk melis_ui onur_dev gizem_js kerem_flutter ipek_ml tolga_backend nazli_kt arda_oss sevval_data umut_go ece_design hakan_rust yagmur_ai bora_sec defne_web alp_devops irem_qa serkan_k cansu_m efe_games pinar_cloud oguz_api mert_sh duru_app kaan_ops lale_ux berk_cpp asli_r tuna_swift sena_vue okan_db nil_test ege_node sude_kt cem_linux aylin_py'.split(' ');
 
 export function demoTower() {
   const r = rng(42);
@@ -34,5 +35,5 @@ export function demoTower() {
   const counts = {};
   gazers.forEach((g) => g.repos.forEach((n) => (counts[n] = (counts[n] || 0) + 1)));
   const repos = REPOS.map(([name, desc, lang]) => ({ name, desc, lang, stars: counts[name] || 0, url: null, scanned: true }));
-  return shapeTower({ owner: 'sample-dev', repos, gazers, scanned: starredNames.length, isDemo: true });
+  return shapeTower({ owner: 'sample_dev', repos, gazers, scanned: starredNames.length, isDemo: true });
 }
