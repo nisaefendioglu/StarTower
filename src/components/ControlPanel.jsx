@@ -4,7 +4,7 @@ import { t } from '../lib/i18n.js';
 
 const TOKEN_URL = 'https://github.com/settings/tokens/new?description=Star%20Tower';
 
-function ShareButton({ user }) {
+function ShareButton({ user, onBeforeShare, note }) {
   const [state, setState] = useState('idle'); // idle | copied | failed
   const url = shareUrl(user);
   const copy = async () => {
@@ -14,6 +14,7 @@ function ShareButton({ user }) {
     } catch {
       setState('failed');
     }
+    if (onBeforeShare) await onBeforeShare();
     setTimeout(() => setState('idle'), 2500);
   };
   return (
@@ -21,6 +22,7 @@ function ShareButton({ user }) {
       <button type="button" onClick={copy}>
         {state === 'copied' ? t('copied') : t('share')}
       </button>
+      {note && <span className="share-note">{note}</span>}
       {state === 'failed' && <input readOnly value={url} onFocus={(e) => e.target.select()} aria-label={t('shareAria')} />}
     </div>
   );
@@ -46,7 +48,7 @@ function AuthBox({ viewer, canSignIn, onSignIn, onSignOut, canShareNames, shared
         <span className="auth-name">{t('signedInAs', { login: viewer.login })}</span>
         <button type="button" className="mini" onClick={onSignOut}>{t('signOut')}</button>
       </div>
-      {canShareNames && (
+      {canShareNames && sharedAt && (
         <div className="auth-share">
           {sharedAt ? (
             <>
@@ -56,12 +58,7 @@ function AuthBox({ viewer, canSignIn, onSignIn, onSignOut, canShareNames, shared
                 <button type="button" onClick={onUnshareNames} disabled={shareBusy}>{t('unshareNames')}</button>
               </div>
             </>
-          ) : (
-            <>
-              <span>{t('shareNamesWhy')}</span>
-              <button type="button" className="primary" onClick={onShareNames} disabled={shareBusy}>{t('shareNames')}</button>
-            </>
-          )}
+          ) : null}
         </div>
       )}
     </div>
@@ -172,7 +169,13 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
 
       <div className={`status ${status.kind}`} role="status">{status.text}</div>
 
-      {currentUser && !loading && <ShareButton user={currentUser} />}
+      {currentUser && !loading && (
+        <ShareButton
+          user={currentUser}
+          onBeforeShare={auth.canShareNames && !auth.sharedAt ? auth.onShareNames : null}
+          note={auth.canShareNames && !auth.sharedAt ? t('shareNamesWhy') : null}
+        />
+      )}
 
       {tower && !loading && <FindFloor key={`${tower.owner}:${auth.viewer?.login ?? ''}`} tower={tower} me={me} onFind={onFind} viewer={auth.viewer} />}
 
