@@ -6,3 +6,8 @@ dist-preview
 .env.local
 worker/node_modules
 worker/.wrangler
+
+# Yerel araçlar (repoya girmez)
+publish.sh
+update.sh
+push-without-workflow.sh
