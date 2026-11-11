@@ -3,7 +3,7 @@ const plural = (n, one, many) => (n === 1 ? one : many);
 const dict = {
   en: {
     // durum satırı
-    demo: 'Showing a sample city. Type a GitHub username to build yours.',
+    demo: 'Showing a sample city. Sign in with GitHub to build yours.',
     demoFake: "Showing a sample city. These users aren't real.",
     needUser: 'Type a GitHub username first.',
     built: ({ owner, people, repos, age }) =>
