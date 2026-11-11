@@ -164,3 +164,15 @@ a.repo:hover { border-color: rgba(255, 196, 92, 0.5); background: rgba(255, 196,
 .auth-share { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; line-height: 1.45; color: var(--muted); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
 .auth-share .row > button { flex: 1; }
 .share-note { font-size: 12px; line-height: 1.45; color: var(--muted); }
+
+/* Açılır kapanır panel */
+.brand-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.collapse-btn { width: 32px; height: 32px; padding: 0; font-size: 14px; line-height: 1; flex: none; }
+.control.collapsed { gap: 6px; padding-block: 12px; width: min(300px, calc(100vw - 32px)); }
+.control.collapsed .brand h1 { font-size: 22px; }
+.control.collapsed .status { margin-top: 4px; }
+.signed-actions { flex-wrap: wrap; align-items: center; }
+.signed-actions > button:not(.link-btn) { flex: 1; }
+.link-btn { background: none; border: none; padding: 6px 2px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+.link-btn:hover { color: var(--ink); }
+.signed-actions > .link-btn { flex: none; }

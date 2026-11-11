@@ -106,6 +106,26 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
   const [tokenOpen, setTokenOpen] = useState(false);
   const listRef = useRef(null);
   const [floorsOpen] = useState(() => !matchMedia('(max-width: 640px)').matches);
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem('star-tower:panel') === 'closed';
+    } catch {
+      return false;
+    }
+  });
+  const toggle = () => {
+    setCollapsed((c) => {
+      try {
+        localStorage.setItem('star-tower:panel', c ? 'open' : 'closed');
+      } catch {
+        /* depolama kapalı */
+      }
+      return !c;
+    });
+  };
+  const [exploring, setExploring] = useState(false);
+  const signedIn = !!auth.viewer;
+  const onOwnCity = signedIn && currentUser?.toLowerCase() === auth.viewer.login.toLowerCase();
 
   useEffect(() => {
     if (showTokenHelp) setTokenOpen(true);
@@ -118,22 +138,44 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
   const floorsDesc = tower ? tower.floors.slice().reverse() : [];
 
   return (
-    <section className="card control">
+    <section className={`card control${collapsed ? ' collapsed' : ''}`}>
       <div className="brand">
-        <h1>
-          Star<span>★</span>Tower
-        </h1>
-        <p className="slogan">{t('slogan')}</p>
-        <p>{t('tagline')}</p>
+        <div className="brand-head">
+          <h1>
+            Star<span>★</span>Tower
+          </h1>
+          <button type="button" className="collapse-btn" onClick={toggle} aria-expanded={!collapsed} aria-label={t(collapsed ? 'expandPanel' : 'collapsePanel')}>
+            {collapsed ? '▾' : '▴'}
+          </button>
+        </div>
+        {collapsed && <div className={`status ${status.kind}`} role="status">{status.text}</div>}
+        {!collapsed && <p className="slogan">{t('slogan')}</p>}
+        {!collapsed && !signedIn && <p>{t('tagline')}</p>}
       </div>
 
+      {!collapsed && (
+      <>
       <AuthBox {...auth} />
 
+      {signedIn && !exploring && (
+        <div className="row signed-actions">
+          {!onOwnCity && (
+            <button type="button" className="primary" onClick={() => onSubmit(auth.viewer.login, '')} disabled={loading}>{t('myCity')}</button>
+          )}
+          {currentUser && (
+            <button type="button" onClick={() => onRefresh(token)} disabled={loading}>{t('refresh')}</button>
+          )}
+          <button type="button" className="link-btn" onClick={() => setExploring(true)}>{t('visitOther')}</button>
+        </div>
+      )}
+
+      {(!signedIn || exploring) && (
       <form
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit(user, token);
+          setExploring(false);
         }}
       >
         <div className="row">
@@ -160,12 +202,17 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
         )}
 
         <div className="row">
-          <button type="button" onClick={onDemo} disabled={loading}>{t('sample')}</button>
-          {currentUser && (
+          {signedIn ? (
+            <button type="button" onClick={() => setExploring(false)}>{t('cancel')}</button>
+          ) : (
+            <button type="button" onClick={onDemo} disabled={loading}>{t('sample')}</button>
+          )}
+          {currentUser && !signedIn && (
             <button type="button" onClick={() => onRefresh(token)} disabled={loading}>{t('refresh')}</button>
           )}
         </div>
       </form>
+      )}
 
       <div className={`status ${status.kind}`} role="status">{status.text}</div>
 
@@ -202,6 +249,8 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
             </ul>
           </details>
         </>
+      )}
+      </>
       )}
     </section>
   );

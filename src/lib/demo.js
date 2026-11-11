@@ -16,7 +16,7 @@ const REPOS = [
 ];
 
 // Örnek kullanıcılar: GitHub adlarında '_' olamayacağı için gerçek hesaplarla karışmaz
-const LOGINS = 'selin_yilmaz kodcu_baris ayse_dev emre_akin zeynep_k burak_tr elif_codes can_ozturk melis_ui onur_dev gizem_js kerem_flutter ipek_ml tolga_backend nazli_kt arda_oss sevval_data umut_go ece_design hakan_rust yagmur_ai bora_sec defne_web alp_devops irem_qa serkan_k cansu_m efe_games pinar_cloud oguz_api mert_sh duru_app kaan_ops lale_ux berk_cpp asli_r tuna_swift sena_vue okan_db nil_test ege_node sude_kt cem_linux aylin_py'.split(' ');
+const LOGINS = 'alex_chen maya_codes sam_dev lena_park omar_kh priya_ml noah_js emma_ui liam_rust sofia_dev lucas_go ava_design ethan_ops mia_data kai_swift zoe_web leo_cpp nora_qa ivan_py chloe_ux diego_api hana_kt felix_sec yuki_ai marco_oss amara_dev ben_linux iris_cloud tomas_db nina_test oscar_node ruby_vue jonas_sh freya_app mateo_games lucy_r arjun_be clara_fe hugo_devops elena_k raj_flutter grace_m owen_dev sara_lin'.split(' ');
 
 export function demoTower() {
   const r = rng(42);
