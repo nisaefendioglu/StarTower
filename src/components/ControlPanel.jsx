@@ -157,6 +157,13 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
       <>
       <AuthBox {...auth} />
 
+      {!signedIn && !exploring && (
+        <div className="row signed-actions">
+          <button type="button" onClick={onDemo} disabled={loading}>{t('sample')}</button>
+          <button type="button" className="link-btn" onClick={() => setExploring(true)}>{t('visitCity')}</button>
+        </div>
+      )}
+
       {signedIn && !exploring && (
         <div className="row signed-actions">
           {!onOwnCity && (
@@ -169,7 +176,7 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
         </div>
       )}
 
-      {(!signedIn || exploring) && (
+      {(exploring || (!signedIn && !auth.canSignIn)) && (
       <form
         autoComplete="off"
         onSubmit={(e) => {
@@ -202,7 +209,7 @@ export default function ControlPanel({ tower, status, loading, selectedId, user,
         )}
 
         <div className="row">
-          {signedIn ? (
+          {signedIn || auth.canSignIn ? (
             <button type="button" onClick={() => setExploring(false)}>{t('cancel')}</button>
           ) : (
             <button type="button" onClick={onDemo} disabled={loading}>{t('sample')}</button>

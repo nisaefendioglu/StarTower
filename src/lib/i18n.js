@@ -38,6 +38,7 @@ const dict = {
     findBtn: 'Find',
     myCity: 'My city',
     visitOther: 'Visit another city',
+    visitCity: 'Visit a city',
     cancel: 'Cancel',
     collapsePanel: 'Collapse panel',
     expandPanel: 'Expand panel',
