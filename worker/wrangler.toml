@@ -1,0 +1,12 @@
+name = "star-tower-api"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+[vars]
+GITHUB_CLIENT_ID = "Ov23liGIMeQaduEkl3Dn"
+# Siteye izin verilen adresler (virgülle). Kendi GitHub kullanıcı adını yaz.
+ALLOWED_ORIGINS = "https://nisaefendioglu.github.io,http://localhost:5173"
+
+[[kv_namespaces]]
+binding = "CITIES"
+id = "4669afaf5793439285592dd372d6093e"
